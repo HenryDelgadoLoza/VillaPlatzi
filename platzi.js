@@ -73,6 +73,18 @@ function dibujar()
     //draw.Image => requiere la ruta del canvas, la posx, posy
     papel.drawImage(fondo.imagen, 0, 0);
     } 
+    if (vaca.cargaOk == true)
+    {
+        papel.drawImage(vaca.imagen, 100, 100);
+    }
+    if (pollo.cargaOk == true)
+    {
+        papel.drawImage(pollo.imagen, 250, 350);
+    }
+    if (cerdo.cargaOk == true)
+    {
+        papel.drawImage(cerdo.imagen, 400, 200);
+    }
 }
 
 function dibujarVacas()
