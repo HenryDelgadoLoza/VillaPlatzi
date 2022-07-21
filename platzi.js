@@ -1,28 +1,78 @@
 var vp = document.getElementById("villaplatzi");
 var papel = vp.getContext("2d");
-var mapa = "tile.png";
+//var mapa = "tile.png"; de esta manera no necesitamos nombrar el src de esta variable, puesto que la obtenemos del json creado para cada imagen
+
+//creamos un objeto literal o es decir un objeto con la sintaxis de json, para detectar inicialmente cuando es que sucede la carga de imagen
+var fondo = {
+    url: "tile.png",
+    cargaOk: false
+}
+
+var vaca = {
+    url: "vaca.png", // la forma en que se separan los atributos json es a través de (,)
+    cargaOk: false // por defecto empezará en false
+};
+
+var pollo = {
+    url: "pollo.png",
+    cargaOk: false // por defecto empezará en false
+};
+
+var cerdo = {
+    url: "cerdo.png",
+    cargaOk: false // por defecto empezará en false
+};
 
 //para cargar la imagen dentro del canvas, se debe crear un objeto imagen nuevo y esa imagen insertarla al canvas
-var fondo = new Image();
-fondo.src = mapa;
-fondo.addEventListener("load", dibujar);
+fondo.imagen = new Image();
+fondo.imagen.src = fondo.url;
+fondo.imagen.addEventListener("load", cargarFondo);
 
-var vaca = new Image();
-vaca.src = "vaca.png";
-vaca.addEventListener("load", dibujarVacas);
+vaca.imagen = new Image();
+vaca.imagen.src = vaca.url;
+vaca.imagen.addEventListener("load", cargarVacas);
 
-var pollo = new Image();
-pollo.src = "pollo.png";
-pollo.addEventListener("load", dibujarPollos);
+pollo.imagen = new Image();
+pollo.imagen.src = pollo.url;
+pollo.imagen.addEventListener("load", cargarPollos);
 
-var cerdo = new Image();
-cerdo.src = "cerdo.png";
-cerdo.addEventListener("load", dibujarCerdos);
+cerdo.imagen = new Image();
+cerdo.imagen.src = cerdo.url;
+cerdo.imagen.addEventListener("load", cargarCerdos);
 
-function dibujar()
+//creamos la función cargarTipo para obtener el estado de la carga, para posteriormente poder dibujar
+function cargarFondo()
 {
+    fondo.cargaOk = true;
+    dibujar();
+}
+
+function cargarVacas()
+{
+    vaca.cargaOk = true;
+    dibujar();
+}
+
+function cargarPollos()
+{
+    pollo.cargaOk = true;
+    dibujar();
+}
+
+function cargarCerdos()
+{
+    cerdo.cargaOk = true;
+    dibujar();
+}
+
+//Aquí estamos definiendo la condición de que si la imagen ha sido cargada se proceda a dibujarla
+function dibujar() 
+{
+    if (fondo.cargaOk == true)
+    {
     //draw.Image => requiere la ruta del canvas, la posx, posy
-    papel.drawImage(fondo, 0, 0);
+    papel.drawImage(fondo.imagen, 0, 0);
+    } 
 }
 
 function dibujarVacas()
