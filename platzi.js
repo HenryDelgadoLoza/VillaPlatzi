@@ -1,6 +1,10 @@
 var vp = document.getElementById("villaplatzi");
 var papel = vp.getContext("2d");
 //var mapa = "tile.png"; de esta manera no necesitamos nombrar el src de esta variable, puesto que la obtenemos del json creado para cada imagen
+var cantidadVacas = parseInt(prompt("Escribe la cantidad de vacas que deseas:"));
+var cantidadPollos = parseInt(prompt("Escribe la cantidad de pollos que deseas:"));
+var cantidadCerdos = parseInt(prompt("Escribe la cantidad de cerdos que deseas:"));
+var cantidadCebras = parseInt(prompt("Escribe la cantidad de cebras que deseas:"));
 
 //creamos un objeto literal o es decir un objeto con la sintaxis de json, para detectar inicialmente cuando es que sucede la carga de imagen
 var fondo = {
@@ -23,6 +27,11 @@ var cerdo = {
     cargaOk: false // por defecto empezará en false
 };
 
+var cebra = {
+    url: "cebrita.png",
+    cargaOk: false // por defecto empezará en false
+};
+
 //para cargar la imagen dentro del canvas, se debe crear un objeto imagen nuevo y esa imagen insertarla al canvas
 fondo.imagen = new Image();
 fondo.imagen.src = fondo.url;
@@ -39,6 +48,10 @@ pollo.imagen.addEventListener("load", cargarPollos);
 cerdo.imagen = new Image();
 cerdo.imagen.src = cerdo.url;
 cerdo.imagen.addEventListener("load", cargarCerdos);
+
+cebra.imagen = new Image();
+cebra.imagen.src = cebra.url;
+cebra.imagen.addEventListener("load", cargarCebras);
 
 //creamos la función cargarTipo para obtener el estado de la carga, para posteriormente poder dibujar
 function cargarFondo()
@@ -65,6 +78,12 @@ function cargarCerdos()
     dibujar();
 }
 
+function cargarCebras()
+{
+    cebra.cargaOk = true;
+    dibujar();
+}
+
 //Aquí estamos definiendo la condición de que si la imagen ha sido cargada se proceda a dibujarla
 function dibujar() 
 {
@@ -75,34 +94,48 @@ function dibujar()
     } 
     if (vaca.cargaOk == true)
     {
-        papel.drawImage(vaca.imagen, 100, 100);
+        for(var v=0; v < cantidadVacas; v++)
+        {
+            var x = aleatorio(0, 7); //por la cantidad de vacas apiñadas, con esto se reduce ello
+            var y = aleatorio(0, 7);
+            var x = x * 60;
+            var y = y * 60;
+            papel.drawImage(vaca.imagen, x, y);
+        }
     }
     if (pollo.cargaOk == true)
     {
-        papel.drawImage(pollo.imagen, 250, 350);
+        for(var p=0; p < cantidadPollos; p++)
+        {
+            var x = aleatorio(0, 7);
+            var y = aleatorio(0, 7);
+            var x = x * 60;
+            var y = y * 60;
+            papel.drawImage(pollo.imagen, x, y);
+        }
     }
     if (cerdo.cargaOk == true)
     {
-        papel.drawImage(cerdo.imagen, 400, 200);
+        for(var c=0; c < cantidadCerdos; c++)
+        {
+            var x = aleatorio(0, 7);
+            var y = aleatorio(0, 7);
+            var x = x * 60;
+            var y = y * 60;
+            papel.drawImage(cerdo.imagen, x, y);
+        }
     }
-}
-
-function dibujarVacas()
-{
-    //draw.Image => requiere la ruta del canvas, la posx, posy
-    papel.drawImage(vaca, 10, 50);
-}
-
-function dibujarPollos()
-{
-    //draw.Image => requiere la ruta del canvas, la posx, posy
-    papel.drawImage(pollo, 30, 100);
-}
-
-function dibujarCerdos()
-{
-    //draw.Image => requiere la ruta del canvas, la posx, posy
-    papel.drawImage(cerdo, 80, 200);
+    if (cebra.cargaOk == true)
+    {
+        for(var b=0; b < cantidadCebras; b++)
+        {
+            var x = aleatorio(0, 7);
+            var y = aleatorio(0, 7);
+            var x = x * 60;
+            var y = y * 60;
+            papel.drawImage(cebra.imagen, x, y);
+        }
+    }
 }
 
 /* Para crear un ciclo de aleatorios en JS
